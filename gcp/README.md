@@ -40,6 +40,38 @@ terraform destroy
 
 Step 5 - get kubernetes credentials 
 
+For zonal cluster
 ```
-gcloud container clusters get-credentials <cluster-name>
+gcloud container clusters get-credentials <cluster-name> --zone <zone>
+```
+or 
+
+For reginal cluster
+```
+gcloud container clusters get-credentials <cluster-name> --region <region>
+```
+
+*Note - A .key file should be generated at the root of the project*
+
+Step 6 - deploy  deployment.yaml
+
+```
+kubectl apply -f cloud/gcp/k8s/deployment.yaml
+```
+
+confirm deployment
+```
+kubectl get pods
+```
+
+Step 7 - deploy service.yaml
+
+Create a service for the Apache application and watch the public in the EXTERNAL-IP Column to host the application now that it is not inside the Kubernetes Cluster.
+
+```
+kubectl apply -f cloud/gcp/k8s/svc.yaml
+```
+confirm service
+```
+kubectl get services
 ```
