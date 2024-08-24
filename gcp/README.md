@@ -56,7 +56,7 @@ gcloud container clusters get-credentials <cluster-name> --region <region>
 Step 6 - deploy  deployment.yaml
 
 ```
-kubectl apply -f cloud/gcp/k8s/deployment.yaml
+kubectl apply -f cloud/gcp/k8s/simple/deployment.yaml
 ```
 
 confirm deployment
@@ -69,9 +69,19 @@ Step 7 - deploy service.yaml
 Create a service for the Apache application and watch the public in the EXTERNAL-IP Column to host the application now that it is not inside the Kubernetes Cluster.
 
 ```
-kubectl apply -f cloud/gcp/k8s/svc.yaml
+kubectl apply -f cloud/gcp/k8s/simple/svc.yaml
 ```
 confirm service
 ```
 kubectl get services
+```
+
+
+---
+### Cleanup (Terraform)
+
+Step 8 - destroy resource (optional)
+
+```
+terraform destroy
 ```
