@@ -25,7 +25,8 @@ Step 3 - Create cloud storage bucket to storage terraform state
 ```
 terraform init
 terraform plan
-terraform apply 
+terraform apply or terraform apply -auto-approve
+
 terraform init -migrate-state
 ```
 
@@ -42,8 +43,10 @@ Step 5 - get kubernetes credentials
 
 For zonal cluster
 ```
+gcloud config set project <project-id>
 gcloud container clusters get-credentials <cluster-name> --zone <zone>
 ```
+
 or 
 
 For reginal cluster
@@ -56,7 +59,7 @@ gcloud container clusters get-credentials <cluster-name> --region <region>
 Step 6 - deploy  deployment.yaml
 
 ```
-kubectl apply -f cloud/gcp/k8s/simple/deployment.yaml
+kubectl apply -f $HOME/cloud/gcp/k8s/simple/deployment.yaml
 ```
 
 confirm deployment
@@ -69,14 +72,26 @@ Step 7 - deploy service.yaml
 Create a service for the Apache application and watch the public in the EXTERNAL-IP Column to host the application now that it is not inside the Kubernetes Cluster.
 
 ```
-kubectl apply -f cloud/gcp/k8s/simple/svc.yaml
+kubectl apply -f $HOME/cloud/gcp/k8s/simple/svc.yaml
 ```
-confirm service
+confirm service and get external ip address
 ```
-kubectl get services
+kubectl get services 
 ```
 
+*Remove deployment and service*
 
+```
+kubectl delete services <service-name>
+```
+
+```
+kubectl get deploy -A
+```
+
+```
+kubectl delete deploy <deployment-name> -n namespacename
+```
 ---
 ### Cleanup (Terraform)
 

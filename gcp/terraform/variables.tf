@@ -1,12 +1,19 @@
+variable "project" {
+  type        = string
+  description = "project id"
+  default     = ""
+}
+
+
 variable "region" {
   type        = string
   description = "gcp region"
   default     = "us-central1"
 }
 
-variable "zone" {
+variable "gke_location" {
   type        = string
-  description = "gcp zone - note leave empty if you want a regional cluster"
+  description = "gcp zone or region"
   default     = "us-central1-b"
 }
 
