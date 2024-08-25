@@ -79,7 +79,8 @@ confirm service and get external ip address
 kubectl get services 
 ```
 
-*Remove deployment and service*
+
+*Remove deployment and service (optional)*
 
 ```
 kubectl delete services <service-name>
@@ -92,6 +93,40 @@ kubectl get deploy -A
 ```
 kubectl delete deploy <deployment-name> -n namespacename
 ```
+
+Step 7a - deploy ingress 
+
+deploy services
+```
+kubectl apply -f $HOME/cloud/gcp/k8s/ingress/echo-v1-ingress.yaml
+kubectl apply -f $HOME/cloud/gcp/k8s/ingress/echo-v2-ingress.yaml
+```
+
+get all services
+```
+kubectl get services -A
+```
+
+
+```
+kubectl apply -f $HOME/cloud/gcp/k8s/ingress/multiple-host-names.yaml
+```
+
+get ingress within all namespaces
+```
+kubectl get ingress -A
+```
+
+Add entry to match host on ingress
+Windows edit 
+C:\Windows\system32\drivers\etc
+host file (in example below 'echo.robofarming.link' is the host)
+
+```
+34.120.22.165 echo.robofarming.link 
+```
+
+
 ---
 ### Cleanup (Terraform)
 
