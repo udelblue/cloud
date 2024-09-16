@@ -3,9 +3,6 @@
 provider "google" {
   credentials = file("/home/cdsommers/gcp_key.json")
   region      = var.region
-  default_labels = {
-    environment = var.environment_default_label
-  }
 }
 
 #store state in cloud storeage
@@ -15,11 +12,15 @@ terraform {
   }
 }
 
-module "pubsub_topic" {
-  source = "terraform-google-modules/pubsub"
-
-  project_id = var.project_id
-  name       =  var.topic_name
-  region     = var.region 
+resource "google_pubsub_subscription" "demo_sub" {
+  name  = var.subscription_name
+  topic = google_pubsub_topic.topic.name
 }
+resource "google_pubsub_topic" "topic" {
+  name                       = var.topic_name
+  project                    = var.project_id
+  message_retention_duration = "3600s"
+
+}
+
 
